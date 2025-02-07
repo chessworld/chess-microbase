@@ -1,0 +1,10 @@
+- title 'Search games'
+
+ul.root-breadcrumb
+  li= link_to 'Home', home_path
+  li
+    h2= @title
+
+.row
+  .span12
+    = render 'games/listing', games: @games, url: search_path, default_sort: 'created_at', default_sort_reverse: true, col_group: :search

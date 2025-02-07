@@ -1,0 +1,6 @@
+- title "Register"
+
+h2= @title
+p= link_to 'Already have an account? Click here to sign in', new_session_path
+br
+= render 'form', user: @user

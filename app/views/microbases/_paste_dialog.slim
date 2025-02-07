@@ -1,0 +1,11 @@
+#paste_dialog.paste-dialog.modal style="display: none"
+  .modal-header
+    a.close data-dismiss="modal" x
+    h3 Paste a PGN game
+  .modal-body
+    = semantic_form_for [microbase, @paste_pgn_game], html: {class: 'inline-form'} do |f|
+      = f.input :pgn, as: :text, input_html: {style: 'width: 90%; height: 60px', class: 'paste-field', 'data-instructions' => 'paste-instructions'}, label: false
+      = f.input :game_number, as: :hidden
+      .submit= f.action :submit
+      .error style="color: #c00; font-style: italic"
+      div#paste-instructions.clipboard-instructions

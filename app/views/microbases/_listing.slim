@@ -1,0 +1,19 @@
+- if @microbases.any?
+  table.table.table-striped
+    thead
+      tr
+        th Name
+        th.span1 Games
+        th style="width: 20px"
+    tbody
+      - @microbases.each do |microbase|
+        tr
+          td= link_to microbase.name, microbase
+          td= microbase.games.size
+          td
+            - if microbase.editors.count > 1
+              = link_to raw('<i class="icon-eye-close"></i>'), microbase_membership_path(microbase, microbase.memberships.where(user_id: current_user.id).first), method: :delete, class: 'action tooltipify', title: 'Leave Microbase', confirm: 'If you leave this database, you will no longer be able to access it, and it won\'t count towards your microbase limit. Are you sure you want to leave this microbase? '
+            - else
+              = link_to raw('<i class="icon-trash"></i>'), remove_microbase_path(microbase), class: 'action tooltipify', title: 'Delete Microbase'
+- else
+  p <strong>You don't have any microbases yet</strong>, #{link_to 'create one now', new_microbase_path} to get started.

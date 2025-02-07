@@ -1,0 +1,8 @@
+- title "New microbase"
+
+ul.root-breadcrumb
+  li= link_to 'Home', microbases_path
+  li
+    h2= @title
+br
+= render 'form', microbase: @microbase

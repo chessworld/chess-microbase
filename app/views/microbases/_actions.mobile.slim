@@ -1,0 +1,9 @@
+ul.actions
+  - if can? :update, microbase
+    li= link_to raw('<i class="icon-plus"></i> Add Game'), new_microbase_game_path(microbase), class: 'new-game-button'
+  li= link_to raw('<i class="icon-share"></i> Get Link'), %(javascript:void(prompt("Instructions: Tap and hold in text box, “Select All”, then “Copy”", "#{microbase_jump_url(token: @microbase.token)}")))
+  li= link_to raw('<i class="icon-user"></i> Add Collaborator'), new_microbase_membership_path(microbase)
+  li= link_to raw('<i class="icon-download-alt"></i> Export'), microbase_path(microbase, format: 'pgn', token: params[:token])
+
+  - if can? :update, microbase
+    li= link_to raw('<i class="icon-pencil"></i> Edit'), edit_microbase_path(microbase)

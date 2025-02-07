@@ -1,0 +1,14 @@
+development:
+  paypal:
+    login: xxx
+    password: xxx
+    signature: xxx
+  facebook:
+    app_id: xxx
+    app_secret: xxx
+    channel_url: xxx
+test:
+  facebook:
+    app_id: xxx
+    app_secret: xxx
+    channel_url: xxx

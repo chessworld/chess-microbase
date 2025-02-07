@@ -1,0 +1,6 @@
+[submodule "vendor/assets/javascripts/seaturtle"]
+	path = vendor/assets/javascripts/seaturtle
+	url = https://github.com/tobico/seaturtle.git
+[submodule "vendor/assets/javascripts/garbochess"]
+	path = vendor/assets/javascripts/garbochess
+	url = https://github.com/glinscott/Garbochess-JS.git

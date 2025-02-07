@@ -1,0 +1,28 @@
+// WizardView radio groups
+ul.radio-group {
+  margin: 0 20px;
+  li.radio-item {
+    position: relative;
+    list-style: none;
+    margin: 0 0 10px;
+    padding: 10px;
+    border-radius: 4px;
+    border: solid 1px #fff;
+    &:hover {
+      background: #eee;
+      border-color: #eee;
+    }
+    &.radio-item-selected {
+      border-color: #ddd;
+    }
+    
+    input { float: left; margin-right: 10px; }
+    label { margin: 0; }
+    
+    .insert-method-diagram {
+      position: absolute;
+      right: 10px;
+      top: 5px;
+    }
+  }
+}

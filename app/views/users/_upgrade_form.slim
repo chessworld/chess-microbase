@@ -1,0 +1,13 @@
+= semantic_form_for :upgrade, url: upgrade_user_path(@user), method: :put, html: {class: 'form-horizontal'} do |f|
+  = f.inputs do
+    .control-group
+      .control-label This account
+      .controls
+        input value="#{@user.account_level.titlecase}" disabled="disabled"
+    .control-group
+      .control-label Upgrade to
+      .controls
+        input value="Premium" disabled="disabled"
+    = f.input :upgrade_for, as: :select, collection: ['1 week', '2 weeks', '1 month', '3 months', '6 months', '1 year', '3 years']
+  = f.actions do
+    = f.action :submit, label: 'Upgrade now'

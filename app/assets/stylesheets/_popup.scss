@@ -1,0 +1,31 @@
+// Popup menus to fit in with bootstrap
+#popup {
+  z-index: 10000;
+}
+ul.popupMenu {
+  background-clip: padding-box;
+  background-color: #FFFFFF;
+  border-color: rgba(0, 0, 0, 0.2);
+  border-radius: 5px;
+  border-style: solid;
+  border-width: 1px;
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+  list-style: none outside none;
+  margin: 2px 0 0;
+  min-width: 80px;
+  padding: 4px 0;
+  a {
+    clear: both;
+    color: #333333;
+    display: block;
+    font-weight: normal;
+    line-height: 18px;
+    padding: 3px 15px;
+    white-space: nowrap;
+    &:hover {
+      background: #08C;
+      color: #FFF;
+      text-decoration: none;
+    }
+  }
+}

@@ -1,0 +1,7 @@
+#copy_link_dialog.modal.copy-dialog style="display: none" data-url=(url)
+  .modal-header
+    a.close data-dismiss="modal" x
+    h3 Get link to #{resource}
+  .modal-body
+    = text_field_tag 'share_url', url, class: 'span4 copy-field', 'data-instructions' => 'copy_link_instructions'
+    span#copy_link_instructions.clipboard-instructions

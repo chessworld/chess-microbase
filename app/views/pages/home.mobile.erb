@@ -1,0 +1,47 @@
+<% action 'Sign In', new_session_path %>
+<div class="boxed" style="text-align: justify">
+  <div style="text-align: center"><img class="replace-2x" src="/assets/logo_mobile.png" width="156" height="150" /></div>
+  <h3>Save, annotate and share</h3>
+  <p>Most chess databases are too large and cumbersome to be practical. Create your own microbases and take them with you wherever you go!</p>
+  <div><%= link_to image_tag('facebook_connect_button.png', alt: 'Connect using Facebook'), facebook_sign_in_url %></div>
+  <div>or <%= link_to 'sign up using your email address', new_user_path %></div>
+</div>
+
+<div class="boxed">
+  <h3>Browse our public microbase</h3>
+  <p>See our features in this public microbase - no login required.</p>
+  <div>
+    <%= link_to 'http://chessmicrobase.com/m/1koly5lq', class: 'btn btn-info btn-large' do %>
+      <%= image_tag "binoculars-icon.png", alt: '', width: '29', height: '18', class: 'replace-2x', style: 'vertical-align: middle' %>
+      Browse Public Microbase
+    <% end %>
+  </div>
+</div>
+  
+<div class="boxed">
+  <h3>Features</h3>
+  <ul>
+    <li>Enter and save your own chess games</li>
+    <li>Annotate your chess games</li>
+    <li>Engine analysis in your browser!</li>
+    <li>Create microbases (small chess databases)</li>
+    <li>Add games by copy-paste PGN</li>
+    <li>Import games from PGN</li>
+    <li>Download games as PGN</li>
+    <li>Works on any web-browser or mobile device!</li>
+    <li>Publish your chess games on the web</li>
+    <li>Embed a PGN viewer on your blog or website</li>
+    <li>Easily share a game or entire microbase</li>
+  </ul>
+</div>
+
+<div class="boxed">
+  <h3>You should sign up if you are:</h3>
+  <ul>
+    <li>A chess coach</li>
+    <li>Writing a Chess Blog</li>
+    <li>Studying chess</li>
+    <li>A tournament chess player (a microbase is better than a
+      shoebox for all your old scoresheets!)</li>
+  </ul>
+</div>

@@ -1,0 +1,20 @@
+- unless game_token?
+  - if game.microbase.games.size > 1
+    ul.breadcrumb style="text-align: center; height: 22px; line-height: 22px"
+      li
+        - if prev_game = game.higher_item
+          = link_to '« Prev', microbase_game_path(game.microbase, prev_game, token: params[:token]), id: 'prev-game'
+        - else
+          span style="color: #777" « Prev
+        span.divider &nbsp;
+      li
+        b
+          = game.position
+          '  / 
+          = game.microbase.games.last.position
+        span.divider &nbsp;
+      li
+        - if next_game = game.lower_item
+          = link_to 'Next »', microbase_game_path(game.microbase, next_game, token: params[:token]), id: 'next-game'
+        - else
+          span style="color: #777" Next »

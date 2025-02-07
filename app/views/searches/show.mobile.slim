@@ -1,0 +1,9 @@
+- title 'Search games'
+- back "Home", home_path
+
+h3= @title
+
+= form_tag search_path, method: :get, class: 'form-search' do
+  = search_field_tag :q, params[:q], class: 'search-query'
+
+= render 'games/listing', games: @games, url: search_path, default_sort: 'created_at', default_sort_reverse: true, col_group: :search

@@ -1,0 +1,23 @@
+.well style="padding: 8px 0"
+  ul.nav.nav-list
+    li class="#{'active' if !params[:tag] && !params[:player] && !params[:opening]}"
+      = link_to "All #{microbase.games.count} games", microbase_path(microbase, sort: params[:sort], reverse: params[:reverse], token: params[:token])
+    - if microbase.games.any?
+      - if microbase.tag_counts.any?
+        li.nav-header Tags
+        - microbase.tag_counts.each do |tag|
+          li class="#{'active' if params[:tag] == tag.name}"
+            = link_to microbase_path(microbase, tag: tag.name, sort: params[:sort], reverse: params[:reverse], token: params[:token]) do
+              | <span class="label label-info">#{tag.name}</span> &times; #{tag.count}
+      - if microbase.openings.any?
+        li.nav-header Openings
+        - microbase.openings.each do |letter, count|
+          li class="#{'active' if params[:opening] == letter}"
+            = link_to microbase_path(microbase, opening: letter, sort: params[:sort], reverse: params[:reverse], token: params[:token]) do
+              | #{letter}00&ndash;#{letter}99 &times; #{count.to_i}
+      - if microbase.player_names.any?
+        li.nav-header Players
+        - microbase.player_names.each do |player|
+          li class="#{'active' if params[:player] == player.first}"
+            = link_to microbase_path(microbase, player: player.first, sort: params[:sort], reverse: params[:reverse], token: params[:token]) do
+              | #{truncate initialize_name(player.first), length: 12} &times; #{player.last.to_i}

@@ -1,0 +1,10 @@
+- action 'Save', 'javascript:$("form.game").submit();', 'save'
+= semantic_form_for [game.microbase, game], html: {class: 'form-vertical'} do |f|
+  #game-editor style="margin-top: 5px" class="#{color_scheme}"
+    .loading Loading game editor...
+  hr
+  h4 Details
+  = render 'fields', f: f
+
+  div style="display: none"
+    = f.action :submit, label: 'Save Changes', button_html: {disable_with: 'Saving...', class: 'btn btn-primary'}    

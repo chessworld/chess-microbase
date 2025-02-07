@@ -1,0 +1,257 @@
+html, body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  //font-family: $baseFontFamily;
+  //font-size: $baseFontSize;
+  //line-height: $baseLineHeight;
+  //color: $textColor;
+  //background-color: $white;
+}
+
+a.btn, .nav-tabs a, .MoveView a { text-decoration: none; }
+
+div.game { display: none; }
+.tooltip { display: none !important; }
+
+ul.radio-group {
+  margin: 0 10px;
+  li.radio-item {
+    padding: 5px 8px;
+    margin: 0 0 5px;
+    .insert-method-diagram {
+      top: 0;
+      right: 5px;
+    }
+  }
+}
+
+body > .container {
+  position: relative;
+  min-height: 100%;
+  > .content {
+    padding: 54px 15px 30px;
+  }
+}
+
+footer {
+  padding: 0;
+  margin: 0;
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 30px;
+  text-align: center;
+  color: #555;
+}
+
+.actions {
+  display: none;
+  position: fixed;
+  right: 0;
+  top: 44px;
+  z-index: 11;
+  list-style: none;
+  background: #fff;
+  box-shadow: 0 2px 15px rgba(0,0,0,0.3);
+  a {
+    display: block;
+    padding: 0 15px;
+    line-height: 44px;
+    color: #333;
+    text-decoration: none;
+    i {
+      margin-right: 8px;
+    }
+  }
+}
+
+// Fix modal dialog positioning
+.modal {
+  left: 0;
+  top: 0;
+  width: 100%;
+  margin: 0;
+  .modal-header {
+    padding: 6px 10px;
+  }
+  .modal-body {
+    padding: 10px 10px 0;
+    p, label {
+      font-size: 12px;
+    }
+  }
+  .modal-footer {
+    padding: 10px 10px 5px;
+  }
+}
+
+// Fix radio group in variations popup
+ul.radio-group {
+  list-style: none;
+}
+
+// Overrides to improve popups
+#popup {
+  z-index: 8;
+  a {
+    text-decoration: none;
+    line-height: 35px;
+  }
+}
+
+// Reduce spacing between move number display and buttons under game board
+// help it fit better on a small screen
+.GameView .toolbar .moveNumber {
+  margin: 0;
+}
+
+// Allow button groups button to be overrided and display as a single button
+.btn-group .btn.solitary {
+  border-radius: 4px;
+}
+
+// Disable alert close button
+.alert .close { display: none; }
+
+// Mobile navigation bar
+.nav-bar {
+  overflow: visible;
+  //margin-bottom: $baseLineHeight;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 10;
+
+  .inner {
+    height: 44px;
+    //@include linear-gradient(#333, #222);
+    box-shadow: 0 1px 3px rgba(0,0,0,.25), inset 0 -1px 0 rgba(0,0,0,.1);
+
+    // Title part
+    .title {
+      color: #eee;
+      text-align: center;
+      font-size: 17px;
+      font-weight: bold;
+      text-shadow: 0 -1px #000;
+      line-height: 42px;
+    }
+
+    // Back button
+    .back a {
+      text-decoration: none;
+      position: absolute;
+      left: 15px;
+      top: 5px;
+      //@include linear-gradient(#454545, #262626);
+      padding: 7px 10px 7px 3px;
+      color: #ddd;
+      font-size: 11px;
+      font-weight: bold;
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.1), 0 1px 0 rgba(255,255,255,.1);
+      border-radius: 0 4px 4px 0;
+      &:before{
+        position:absolute;
+        top:-1px;
+        left:-10px;
+        height : 34px;
+        width: 34px;
+        -webkit-background-size : 22px 22px;
+        background-position :-2px -1.5px;
+        background-image :
+        -webkit-gradient(linear, left bottom, right top,
+            from(#262626),
+            to(#454545));
+        -webkit-transform : rotate(-45deg) skew(-10deg, -10deg);
+        -webkit-border-top-right-radius : 100px 40px;
+        -webkit-border-top-left-radius : 30px 2px;
+        -webkit-border-bottom-right-radius : 2px 30px;
+        -webkit-border-bottom-left-radius : 40px 100px;
+        z-index : 1;
+        content : ' ';
+        border-left : 1.5px solid rgba(255,255,255,0.05);
+        box-shadow: inset 0 1px 0 rgba(255,255,255,.1), 0 1px 0 rgba(255,255,255,.1);
+        -webkit-mask-image :
+            -webkit-gradient(linear, left top, right bottom,
+                from(#000000),
+                color-stop(0.33,#000000),
+                color-stop(0.33, transparent),
+                to(transparent));
+      }
+    }
+
+    // Action button
+    .action a {
+      text-decoration: none;
+      position: absolute;
+      right: 5px;
+      top: 4px;
+      //@include linear-gradient(#333, #222);
+      border-radius: 4px;
+      padding: 7px 10px;
+      color: #ddd;
+      font-size: 11px;
+      font-weight: bold;
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.1), 0 1px 0 rgba(255,255,255,.1);
+      &.open {
+        background: #eee;
+        i {
+          background-image: image-url("img/glyphicons-halflings.png");
+        }
+      }
+      &.save {
+        //@include linear-gradient(#0088cc, #0044cc);
+      }
+    }
+  }
+}
+
+.boxed {
+  padding: 15px;
+  margin-bottom: 15px;
+  background-color: #f0f0f0;
+  border-radius: 6px;
+}
+
+// Forms
+.form-actions {
+  padding: 7px 10px 8px;
+  margin: 5px 0;
+}
+.form-horizontal {
+  .control-label {
+      position: absolute;
+      text-align: left;
+      width: 100px;
+      font-weight: bold;
+  }
+  .controls {
+    margin-left: 100px;
+  }
+  .control-group.stringish {
+    input {
+      width: 180px;
+    }
+  }
+  .form-actions {
+    padding-left: 100px;
+  }
+}
+
+// Full width button
+.btn-wide {
+  display: block;
+  width: auto;
+}
+
+// Microbase expansion button
+.expandable-comments a.toggle {
+  padding: 10px;
+  margin: 0 0 -10px;
+  &:hover { background: inherit; }
+}

@@ -1,0 +1,9 @@
+- title "Add coupon"
+
+ul.root-breadcrumb
+  li= link_to 'Home', home_path
+  li= link_to 'Coupons', coupons_path
+  li
+    h2= @title
+
+== render 'form'

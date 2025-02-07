@@ -1,0 +1,14 @@
+doctype html
+html lang="en"
+  head
+    meta charset="utf-8"
+    title= @title ? "#{@title} - Chess Microbase" : "Chess Microbase"
+    = csrf_meta_tags
+    = javascript_include_tag 'modernizr'
+    = stylesheet_link_tag "embedded", :media => "all"
+    = yield :head
+
+  body
+    = yield
+    = javascript_include_tag "application"
+    = yield :scripts

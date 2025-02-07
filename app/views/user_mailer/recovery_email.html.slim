@@ -1,0 +1,5 @@
+p Recover your Chess Microbase password
+
+p= link_to 'Click here to reset your password', edit_user_url(@user, token: @user.recovery_token)
+
+p If you did not request to reset your password, you can safely ignore this email.

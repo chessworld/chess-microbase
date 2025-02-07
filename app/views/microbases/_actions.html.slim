@@ -1,0 +1,24 @@
+.actions.btn-toolbar
+  - if can? :update, microbase
+    .btn-group= link_to raw('<i class="icon-plus"></i> Add game'), new_microbase_game_path(microbase), class: 'btn new-game-button'
+
+  .btn-group.dropdown#share_options
+    = link_to raw('<i class="icon-share"></i> Share <b class="caret"></b>'), '#share_options', class: 'btn dropdown-toggle', id: 'share_button', 'data-toggle' => 'dropdown'
+    ul.dropdown-menu
+      li= link_to 'Get Link', '#copy_link_dialog', id: 'copy_link_button', 'data-toggle' => 'modal'
+      li= link_to 'Add Collaborator', new_microbase_membership_path(microbase)
+      li= link_to 'Embed', action: :embed, token: params[:token]
+  
+  - if can? :update, microbase
+    .btn-group
+      = link_to raw('<i class="icon-import"></i> Import'), import_microbase_path(microbase), class: 'btn import-button'
+      = link_to raw('<i class="icon-pgn"></i> Paste PGN'), '#paste_dialog', class: 'btn paste-game-button', id: 'paste-button', 'data-toggle' => 'modal'
+
+  .btn-group
+    = link_to raw('<i class="icon-download-alt"></i> Export'), microbase_path(microbase, format: 'pgn', token: params[:token]), class: 'btn'
+
+  - if can? :update, microbase
+    .btn-group= link_to raw('<i class="icon-pencil"></i> Edit'), edit_microbase_path(microbase), class: 'btn'
+
+  - if microbase.editors.count > 1
+    .shared-ribbon

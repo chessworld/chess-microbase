@@ -1,0 +1,32 @@
+- default_sort ||= 'position'
+- default_sort_reverse ||= false
+- col_group ||= :microbase
+= listing games, default_sort: default_sort, default_sort_reverse: default_sort_reverse, class: 'table table-striped table-condensed', url: url do |l|
+  - l.preserve_param :player
+  - l.preserve_param :tag
+  - l.preserve_param :token
+  - if col_group == :microbase
+    - l.column 'position', label: '#' do |game|
+      = game.position
+  - elsif col_group == :search
+    - l.column 'microbase', label: 'Microbase' do |game|
+      = link_to game.microbase.name, microbase_path(game.microbase)
+  - l.column 'white' do |game|
+    = link_to truncate(initialize_name(game.white.present? ? game.white : 'Unknown'), length: 11), microbase_game_path(game.microbase, game, token: params[:token]), style: 'display: block'
+  - l.column 'black' do |game|
+    = link_to truncate(initialize_name(game.black.present? ? game.black : 'Unknown'), length: 11), microbase_game_path(game.microbase, game, token: params[:token]), style: 'display: block'
+
+  - if col_group == :microbase
+    - l.column 'result' do |game|
+      = game.result
+      - if game.has_comments?
+        '
+        = image_tag 'game_editor/commented-move.png', alt: '≣', title: 'Annotated', class: 'commented-icon'
+
+  - if col_group == :search
+    - l.column 'created_at' do |game|
+      = game.created_at.to_date.to_formatted_s(:rfc822)
+
+  - l.column '' do |game|
+    - if can? :delete, game
+      = link_to raw('<i class="icon-trash"></i>'), [game.microbase, game], method: :delete, confirm: "Are you sure you want to permanently delete this game?", class: 'action'

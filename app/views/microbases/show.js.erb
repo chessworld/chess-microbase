@@ -1,0 +1,50 @@
+(function() {
+  <% if @microbase %>
+  var listen = function(evnt, elem, func) {
+    if (elem.addEventListener)  // W3C DOM
+      elem.addEventListener(evnt,func,false);
+    else if (elem.attachEvent) { // IE DOM
+      elem.attachEvent("on"+evnt, func);
+    }
+  };
+  
+  var settings = '<%= params[:hash] %>';
+  
+  var div = document.getElementById('embedded_microbase_<%= @microbase.token %>');
+  var iframe = document.createElement('iframe');
+  iframe.src = '<%= microbase_url(@microbase, token: @microbase.token, embedded: 1) %>#' + settings;
+  iframe.frameBorder = 0
+  iframe.allowTransparency = true
+  iframe.style.borderWidth = 0
+
+  var width = div.offsetWidth - 5;
+  
+  var updateIframeSize = function(width) {
+    var board, height;
+    if(width < 300) width = 300;
+    if(width < 450 && settings.match(/m/)) width = 450;
+    board = width;
+    if(settings.match(/m/)) board = board - 220;
+    board = board - board % 8;
+    height = board + 42;
+    if(settings.match(/h/)) height += 67;
+    if(settings.match(/c/)) height += 80;
+    iframe.width = width;
+    iframe.height = height;
+  };
+  updateIframeSize(width);
+  while (div.lastChild) {
+    div.removeChild(div.lastChild);
+  }
+  div.appendChild(iframe);
+
+  listen('resize', window, function() {
+    if (div.offsetWidth != width) {
+      width = div.offsetWidth;
+      updateIframeSize(width);
+    }
+  });
+  <% else %>
+    document.getElementById('embedded_microbase_<%= params[:token] %>').firstChild.innerHTML = 'Sorry, this embedded chess microbase could not be found.'
+  <% end %>
+})();

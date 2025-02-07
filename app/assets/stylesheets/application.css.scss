@@ -1,0 +1,106 @@
+//= require select2
+//= require bootstrap_and_overrides
+//= require_tree ./modules
+
+@import "vars";
+@import "bourbon";
+@import "radio-groups";
+@import "calendrical";
+@import "popup";
+@import "toolbar";
+@import "home";
+@import "microbases";
+@import "games";
+@import "users";
+@import "game_editor";
+@import "color-schemes";
+@import "custom-sprites";
+
+html, body {
+  height: 100%;
+}
+
+div.game { display: none; }
+
+.hidden { display: none; }
+
+body h2 {
+  font-size: 18px;
+  line-height: 24px;
+  margin: 0 0 10px;
+}
+
+body > .container {
+  position: relative;
+  min-height: 100%;
+  > .content {
+    padding: 60px 0 38px;
+  }
+}
+
+footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 38px;
+}
+
+.footer-nav {
+  margin: 0;
+  list-style: none;
+  line-height: 20px;
+  li {
+    display: inline;
+    vertical-align: bottom;
+    margin-right: 20px;
+  }
+}
+
+// Heading breadcrumb nav
+ul.root-breadcrumb {
+  font-size: 18px;
+  line-height: 24px;
+  margin: 0 0 10px;
+  li {
+    display: inline-block;
+    margin-right: 10px;
+    padding: 0 0 0 17px;
+    background: image-url("breadcrumb-separator.png") no-repeat 0 50%;
+    &:first-child {
+      background: none;
+      padding: 0
+    }
+    h2 {
+      margin: 0;
+      line-height: 18px;
+    }
+  }
+}
+
+// Menu bar account display
+.account-free, .account-premium {
+  padding: 3px 15px;
+  margin: 2px 0 6px;
+  font-weight: bold;
+  font-style: italic;
+  color: #000;
+  border: solid 1px #000;
+  border-style: solid none;
+  max-width: 160px;
+}
+.account-free {
+  background: #12C800;
+  border-color: #0C6B00;
+}
+.account-premium {
+  background: #C9EA00;
+  border-color: #5C7000;
+}
+
+// Instructions for copying or pasting
+.clipboard-instructions {
+  margin-left: 15px;
+  vertical-align: text-bottom;
+  font: 16px bold Helvetica, Arial, sans-serif;
+  color: #BBB;
+}

@@ -1,0 +1,69 @@
+@page {
+  margin: 20mm 23mm;
+}
+
+html, body { margin: 0 }
+
+.print-game {
+  font: 10pt "Times New Roman", serif;
+  .summary {
+    width: 250px;
+    border: solid 1px #555;
+    border-style: solid none;
+    padding: 0.4em 0;
+    margin-bottom: 0.8em;
+
+    .event, .opening {
+      font-style: italic;
+    }
+    .player {
+      font-weight: bold;
+      position: relative;
+      .rating {
+        display: block;
+        position: absolute;
+        top: 0;
+        left: 210px;
+      }
+    }
+  }
+  .moves, .result {
+    font-weight: bold;
+  }
+  .diagram {
+    margin: 10px 20px 5px;
+    img {
+      width: 190px;
+      height: 190px;
+    }
+  }
+
+  .variation {
+    position: relative;
+    margin-left: 30px;
+    .depth-indicator {
+      position: absolute;
+      width: 26px;
+      text-align: right;
+      top: 0;
+      left: -30px;
+      color: #333;
+    }
+    .moves, .comment {
+      display: inline;
+    }
+    .moves {
+      font-weight: normal;
+    }
+    .comment {
+      font-style: italic;
+    }
+  }
+
+  .footer {
+    font-style: italic;
+    font-size: 9pt;
+    color: #000;
+    margin-top: 0.8em;
+  }
+}

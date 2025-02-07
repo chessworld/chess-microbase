@@ -1,0 +1,81 @@
+table.table.table-bordered.table-striped
+  thead
+    tr
+      th colspan="2" Players
+  tbody
+    tr
+      td width="30%"
+        | White
+      td
+        - if game.white.present?
+          - if game_token?
+            = game.white
+            - if game.white_rating.present?
+              '  (#{game.white_rating.to_i})
+          - else
+            = link_to microbase_path(game.microbase, player: game.white, token: params[:token]) do
+              = game.white
+              - if game.white_rating.present?
+                '  (#{game.white_rating.to_i})
+
+    tr
+      td Black
+      td
+        - if game.black.present?
+          - if game_token?
+            = game.black
+            - if game.black_rating.present?
+              '  (#{game.black_rating.to_i})
+          - else
+            = link_to microbase_path(game.microbase, player: game.black, token: params[:token]) do
+              = game.black
+              - if game.black_rating.present?
+                '  (#{game.black_rating.to_i})
+
+table.table.table-bordered.table-striped
+  thead
+    tr
+      th colspan="2" Game
+  tbody
+    tr
+      td width="30%" Moves
+      td= game.move_count
+    tr
+      td Opening
+      td
+        - if game.opening
+          - if game_token?
+            = game.opening.code
+          - else
+            = link_to game.opening.code, microbase_path(game.microbase, opening: game.opening.code, token: params[:token])
+          '  &mdash; #{game.opening.name}
+    tr
+      td Result
+      td= game.result
+    tr
+      td Date
+      td= game.date.try(:to_formatted_s, :long)
+    tr
+      td Tags
+      td  
+        - game.tags.each do |tag|
+          - if game_token?
+            span.label.label-info= tag.name
+          - else
+            = link_to tag.name, microbase_path(game.microbase, tag: tag.name, token: params[:token]), class: 'label label-info'
+          ' 
+
+table.table.table-bordered.table-striped
+  thead
+    tr
+      th colspan="2" Tournament
+  tbody
+    tr
+      td width="30%" Tournament
+      td= game.tournament
+    tr
+      td Location
+      td= game.location
+    tr
+      td Round
+      td= game.round_and_subround

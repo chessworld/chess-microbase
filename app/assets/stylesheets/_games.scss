@@ -1,0 +1,40 @@
+#hit-counter {
+  float: right;
+  border: solid 1px #DDD;
+  padding: 2px 6px;
+  width: 80px;
+  border-radius: 4px;
+  .counter {
+    float: right;
+    font-weight: bold;
+    text-align: right;
+  }
+  .label {
+    float: left;
+    font-size: 11px;
+  }
+}
+
+#preview-container {
+  background: #FFF2DF;
+  border: solid 1px #555;
+  box-shadow: 0 3px 20px rgba(0,0,0,0.4);
+  padding: 20px;
+  font-family: serif;
+  cite { font-style: italic; }
+}
+
+@media (min-width: 1200px) {
+  #preview-container {
+    aside {
+      float: right;
+      width: 180px;
+      padding-left: 20px;
+      border-left: solid 1px #555;
+    }
+
+    section {
+      margin-right: 220px;
+    }
+  }
+}

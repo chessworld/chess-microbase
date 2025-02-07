@@ -1,0 +1,10 @@
+- title "Add game"
+
+ul.root-breadcrumb
+  li= link_to 'Home', home_path
+  li= link_to truncate(@microbase.name, length: 20), @microbase
+  li
+    h2= @title
+
+- scripts 'games'
+= render 'form', game: @game

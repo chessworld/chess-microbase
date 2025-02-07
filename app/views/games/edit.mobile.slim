@@ -1,0 +1,4 @@
+- title "Edit game"
+- scripts 'games'
+- back truncate(@game.name, length: 8), [@microbase, @game]
+= render 'form', game: @game

@@ -1,0 +1,26 @@
+- if admin?
+  - title "Edit user"
+  ul.root-breadcrumb
+    li= link_to 'Home', home_path
+    li= link_to 'Users', users_path
+    li= link_to @user.full_name, @user
+    li
+      h2= @title
+- else
+  - title "Settings"
+  ul.root-breadcrumb
+    li= link_to 'Home', microbases_path
+    li Account
+    li
+      h2= @title
+br
+.row
+  .span6
+    h3 Account Settings
+    br
+    = render 'form', user: @user
+  .span1 &nbsp;
+  .span5
+    h3 Account Status
+    br
+    = render 'account_status', user: @user

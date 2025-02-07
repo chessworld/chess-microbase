@@ -1,0 +1,50 @@
+- title @microbase.name
+
+- if @embedded
+  - scripts 'embedding'
+  .microbase data-url="#{url_for(token: params[:token])}" data-more="#{@more_games}"
+    = render @games
+  - if @microbase.preamble.present?
+    #preamble data-title="#{@microbase.name}"
+      = markdown @microbase.preamble
+  #game-editor
+    .loading Loading embedded game viewer...
+- else
+  - scripts 'microbases', 'sharing'
+
+  = render 'promo' unless current_user
+  ul.root-breadcrumb
+    li= link_to 'Home', home_path
+    li
+      h2= @title
+  = render 'actions', microbase: @microbase
+  - if @microbase.preamble.present?
+    .well
+      .expandable-preamble
+        .preamble= markdown @microbase.preamble
+        = link_to 'Show more', '#', class: 'toggle'
+  .row
+    .span2= render 'filters', microbase: @microbase
+    .span10= render 'games/listing', games: @games, url: url_for(@microbase)
+  = render 'shared/copy_link_dialog', resource: 'microbase', url: microbase_jump_url(token: @microbase.token)
+  = render 'paste_dialog', microbase: @microbase if can? :update, @microbase
+
+  - if current_user && @microbase.games.count >= current_user.game_limit
+    #limit_warning.modal.hide
+      .modal-header
+        button.close type="button" data-dismiss="modal" x
+        h3 Game limit exceeded
+      .modal-body
+        p
+          | Sorry, #{current_user.account_level} accounts can only have up to 
+          | #{current_user.game_limit} games per microbase.
+      .modal-footer
+        = render 'shared/upgrade_links'
+
+    - content_for :scripts do
+      javascript:
+        $(function(){ $('.new-game-button, .paste-game-button, .import-button').click(function(e) {
+          e.preventDefault();
+          e.stopPropagation();
+          $('#limit_warning').modal('show')
+        })});

@@ -1,0 +1,1 @@
+task deploy: %w(db:migrate assets:precompile)

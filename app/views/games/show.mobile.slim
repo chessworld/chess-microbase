@@ -1,0 +1,22 @@
+- title "#{truncate(initialize_name(@game.white.present? ? @game.white : 'Unknown'), length: 10)} vs #{truncate(initialize_name(@game.black.present? ? @game.black : 'Unknown'), length: 10)}"
+
+- content_for :head do
+  meta name="garbochess" content=(asset_url('garbochess.js'))
+  
+- back truncate(@microbase.name, length: 8), @microbase
+= actions do
+  = render 'actions', game: @game
+
+= render @game
+
+- scripts 'games', 'sharing'
+
+- unless current_user
+  = render 'promo'
+
+#game-editor style="margin-top: 5px" class="#{color_scheme}"
+  .loading Loading game viewer...
+hr
+h4 Details
+br
+= render 'details', game: @game

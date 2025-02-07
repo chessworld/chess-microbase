@@ -1,0 +1,30 @@
+- title "Coupons"
+
+ul.root-breadcrumb
+  li= link_to 'Home', home_path
+  li
+    h2= @title
+
+.actions.btn-toolbar
+  .btn-group= link_to raw('<i class="icon-plus"></i> New coupon'), new_coupon_path, class: 'btn'
+
+table.table.table-striped.table-condensed
+  thead
+    tr
+      th Code
+      th Upgrades to
+      th Upgrade length in days
+      th Expires on
+      th Maximum claims
+      th Users claimed
+  tbody
+    - @coupons.each do |coupon|
+      tr
+        td= link_to coupon.code, coupon
+        td= coupon.upgrades_to.titlecase
+        td= pluralize coupon.upgrade_length_in_days, 'day'
+        td= coupon.expires_on ? coupon.expires_on.to_s(:long) : 'Never'
+        td= coupon.maximum_claims || 'No limit'
+        td= coupon.coupon_claims.size
+
+= will_paginate @coupons

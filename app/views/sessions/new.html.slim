@@ -1,0 +1,15 @@
+.row
+  .span5
+    h2 Sign in
+    br
+    div= link_to 'Sign in with Facebook', facebook_sign_in_url
+    br
+    = render 'form'
+  .span2 &nbsp;
+  .span5
+    h2 Sign up for free
+    br
+    div Sign up for a new account to start creating microbases and adding games.
+    br
+    div= link_to image_tag('facebook_connect_button.png', alt: 'Connect using Facebook'), facebook_sign_in_url
+    p or #{link_to 'sign up using your email address', new_user_path}

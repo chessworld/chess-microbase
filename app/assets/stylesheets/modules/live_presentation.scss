@@ -1,0 +1,43 @@
+.live-presentation {
+  position: relative;
+  height: 38px;
+  border-bottom: solid 2px #eee;
+  line-height: 30px;
+}
+
+.live-presentation__title {
+  display: inline-block;
+  font-weight: bold;
+}
+
+.live-presentation__status {
+  display: inline-block;
+  color: #999;
+  font-style: italic;
+  margin-left: 10px;
+}
+
+.live-presentation__url-share {
+  position: absolute;
+  right: 0;
+  display: inline-block;
+  border: solid 1px #EEE;
+  border-radius: 4px;
+}
+
+.live-presentation__url-share-label {
+  background: #EEE;
+  margin: 0;
+  padding: 0;
+  padding-left: 6px;
+}
+
+.live-presentation__url-share-input {
+  border: 0;
+  width: 350px;
+  padding: 3px 5px;
+  margin: 0;
+  margin-left: 6px;
+  border-top-right-radius: 3px;
+  border-bottom-right-radius: 3px;
+}

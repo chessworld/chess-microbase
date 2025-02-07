@@ -1,0 +1,36 @@
+- title "Users"
+
+ul.root-breadcrumb
+  li= link_to 'Home', home_path
+  - if @search_term.present?
+    li= link_to 'Users', users_path
+    li
+      h2 Search result
+  - else
+    li
+      h2= @title
+
+.well
+  = form_tag users_path, method: 'get', class: 'form-search', style: 'margin-bottom: -5px' do
+    label
+      | Search by name or email:
+      =< text_field_tag :search_term, @search_term, class: 'input-medium search-query' 
+      =< submit_tag 'Search', class: 'btn'
+
+table.table.table-striped.table-condensed
+  thead
+    tr
+      th Name
+      th Email
+      th Signed Up
+      th Confirmed
+      th Account
+  tbody
+    - @users.each do |user|
+      tr
+        td= link_to user.full_name, user
+        td= user.email
+        td= user.created_at && user.created_at.to_date.to_s(:long)
+        td= user.confirmed_at && user.confirmed_at.to_date.to_s(:long)
+        td= user.account_level.titlecase
+= will_paginate @users

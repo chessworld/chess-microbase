@@ -1,0 +1,11 @@
+- title "Edit microbase"
+ul.root-breadcrumb
+  li= link_to 'Home', home_path
+  li= link_to @microbase.name, @microbase
+  li
+    h2= @title
+
+br
+.row
+  .span6
+    = render 'form', microbase: @microbase

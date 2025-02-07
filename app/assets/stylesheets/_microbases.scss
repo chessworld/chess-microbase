@@ -1,0 +1,24 @@
+// Icon on microbase games list to show which games are commented
+.commented-icon {
+  height: 7px;
+  width: 9px;
+  margin: -1px 0 1px 4px;
+}
+
+// Expandable preamble display
+.expandable-preamble {
+  .preamble {
+    height: 55px;
+    overflow: hidden;
+  }
+  a.toggle {
+    display: block;
+    text-align: center;
+    margin: 0 -20px -20px;
+    padding: 5px;
+    &:hover {
+      background: rgba(0,0,0,0.05);
+    }
+    border-radius: 0 0 4px 4px;
+  }
+}

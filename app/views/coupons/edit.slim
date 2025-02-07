@@ -1,0 +1,10 @@
+- title "Edit coupon"
+
+ul.root-breadcrumb
+  li= link_to 'Home', home_path
+  li= link_to 'Coupons', coupons_path
+  li= link_to @coupon.code, @coupon
+  li
+    h2= @title
+
+= render 'form'

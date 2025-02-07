@@ -1,0 +1,608 @@
+@import "vars";
+
+@font-face {
+    font-family: 'WebUSCF';
+    src: url('/fonts/WebUSCF.ttf');
+}
+
+#game-editor .loading {
+  display: inline-block;
+  padding: 10px 20px;
+  background: #ddd;
+  color: #333;
+  border-radius: 4px;
+  &:after {
+    content: '';
+    display: inline-block;
+    vertical-align: middle;
+    width: 16px;
+    height: 16px;
+    margin-left: 20px;
+    background: image-url("loading.gif");
+  }
+}
+
+a.live-move:hover {
+  background: #08c;
+  color: #fff;
+}
+
+.annotation-select {
+  line-height: 44px;
+  font-size: 24px;
+  a {
+    display: inline-block;
+    width: 44px;
+    height: 44px;
+    margin: 0 8px 8px 0;
+    border: solid 1px #CCC;
+    text-align: center;
+    &:hover { border-color: #08C; text-decoration: none; }
+  }
+}
+
+.insert-method-diagram {
+  display: inline-block;
+  width: 180px;
+  height: 30px;
+  background: no-repeat image-url("game_editor/insert_methods.png");
+  &.insert-method-overwrite   { background-position: 0 0 }
+  &.insert-method-variation   { background-position: 0 -30px; }
+  &.insert-method-mainline    { background-position: 0 -60px; }
+  &.insert-method-replace     { background-position: 0 -90px; }
+}
+@media (max-width: 450px) {
+  ul.radio-group li.radio-item .insert-method-diagram {
+    display: block;
+    position: static;
+    margin: 0 0 -10px 20px;
+  }
+}
+
+.GameView, .popupMenu {
+  i {
+    background: 0 0 no-repeat image-url("game_editor/board_navigation.png");
+    width: 20px;
+    height: 20px;
+    text-indent: -1000em;
+  }
+  .icon-first           { background-position: 0        0; }
+  .icon-prev            { background-position: -20px    0 }
+  .icon-next            { background-position: -40px    0 }
+  .icon-last            { background-position: -60px    0 }
+  .icon-illegal-move    { background-position: -80px    0; }
+  .icon-rotate          { background-position: -100px   0; }
+  .icon-analysis-engine { background-position: -120px   0; }
+  .icon-training-mode   { background-position: -140px   0; }
+  .icon-annotate        { background-position: -160px   0; }
+  .icon-position-setup  { background-position: -180px   0; }
+  .icon-markup                  { background-position: 0        -20px }
+  .icon-markup-square-green     { background-position: -20px    -20px }
+  .icon-markup-square-yellow    { background-position: -40px    -20px }
+  .icon-markup-square-red       { background-position: -60px    -20px }
+  .icon-markup-arrow-green      { background-position: -80px    -20px }
+  .icon-markup-arrow-yellow     { background-position: -100px   -20px }
+  .icon-markup-arrow-red        { background-position: -120px   -20px }
+  .icon-markup-erase            { background-position: -140px   -20px }
+  .icon-markup-clear            { background-position: -160px   -20px }
+  .icon-print-diagram           { background-position: -180px   -20px }
+  .icon-presentation-mode       { background-position: -140px   -40px }
+  .icon-delete-move             { background-position: -160px   -40px }
+}
+
+.BoardView
+{
+  border: solid 1px #BBB;
+  position: relative;
+  border-radius: 4px;
+
+  .square {
+    position: absolute;
+    border: solid 1px #BBB;
+    border-width: 0 1px 1px 0;
+    &.right-edge { border-right: none; }
+    &.bottom-edge { border-bottom: none; }
+    &.left-edge.top-edge { border-top-left-radius: 3px; }
+    &.right-edge.top-edge { border-top-right-radius: 3px; }
+    &.left-edge.bottom-edge { border-bottom-left-radius: 3px; }
+    &.right-edge.bottom-edge { border-bottom-right-radius: 3px; }
+    &.white {
+      background: #FFF;
+      &.red { background: #F88 }
+      &.yellow { background: #FF8 }
+      &.green { background: #8F8 }
+    }
+    &.black {
+      background: #EEE;
+      &.red { background: #E66 }
+      &.yellow { background: #EE6 }
+      &.green { background: #6E6 }
+    }
+  }
+  .rank-notation {
+    margin-top: -9px;
+  }
+  .file-notation {
+    margin-left: -4px;
+  }
+  .rank-notation, .file-notation {
+    position: absolute;
+    font-size: 10px;
+    font-weight: bold;
+    color: #BBB;
+  }
+  &.presentation-mode {
+    border-width: 3px;
+    top: -2px;
+    left: -2px;
+    margin-bottom: -4px;
+    border-radius: 8px;
+    .rank-notation, .file-notation {
+      font-size: 16px;
+      color: #777;
+    }
+    .rank-notation { margin-top: -10px; margin-left: -5px; }
+    .file-notation { margin-left: -5px; margin-top: -5px; }
+  }
+  &.illegal {
+    // Border marked as important to ensure it overrides any border color
+    // set by current color scheme
+    border: solid 2px $error_color !important;
+    left: -1px; top: -1px;
+  }
+  .hilight {
+    border: solid 2px $hilight_color;
+    position: absolute;
+    border-radius: 4px;
+  }
+  .print-diagram {
+    position: absolute;
+    right: 2px;
+    bottom: 2px;
+    width: 20px;
+    height: 20px;
+    background: rgba(255,255,255,0.8);
+  }
+}
+
+.BranchPopupView
+{
+  width: 100px;
+  border: solid 1px #bbb;
+  background: #fff;
+  background: rgba(255,255,255,0.8);
+  border-radius: 4px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+  li {
+    font-weight: bold;
+    list-style: none;
+    padding: 5px;
+    border-bottom: solid 1px #bbb;
+    box-shadow: 0 -20px 20px -10px rgba(0,0,0,0.1) inset;
+    cursor: pointer;
+    &:first-child {
+      border-radius: 3px 3px 0 0;
+    }
+    &:last-child, &.last {
+      border-bottom: none;
+      border-radius: 0 0 3px 3px;
+    }
+    &.active {
+      background: #C3C0FF;
+      background: rgba(195, 192, 255, 0.8);
+    }
+  }
+}
+
+.EngineView
+{
+  position: absolute;
+  right: 0;
+  padding: 10px;
+  width: 178px;
+  height: 150px;
+  overflow: hidden;
+  background: #EEF0FF;
+  border: solid 1px #B4B6C0;
+  border-radius: 4px;
+
+  h3 {
+    margin: 0 0 5px;
+    font-size: 12px;
+    line-height: 16px;
+    color: #1E1F26;
+  }
+  img {
+    position: absolute;
+    top: 10px;
+    right: 60px;
+  }
+
+  .score {
+    position: absolute;
+    right: 10px;
+    top: 10px;
+  }
+}
+
+.GameView
+{
+  display:    block;
+  position:   relative;
+  margin-bottom: 10px;
+
+  .piece {
+    position:   relative;
+    text-decoration: none;
+    div {
+      cursor:     default;
+      position: absolute;
+      left: 0;
+      top: 0;
+    }
+    .fg { color: #000; }
+    .bg { color: #fff; }
+  }
+  .PieceView {
+    display:    block;
+    position:   absolute;
+    &.moving { z-index: 3; }
+  }
+  footer { position: static; }
+
+  .moveNumber {
+    float: left;
+    display: block;
+    width: 75px;
+    height: 24px;
+    line-height: 24px;
+    padding: 1px 5px;
+  }
+
+  // Make engine view moves more compact
+  .EngineView {
+    .MoveView a, .moveNumber {
+      height: 20px;
+      line-height: 20px;
+    }
+  }
+
+  .toolbar {
+    position: absolute;
+    height: 24px;
+    .btn-toolbar {
+      margin: 0;
+    }
+    .moveNumber {
+      margin-left: 10px;
+      line-height: 30px;
+      font-weight: bold;
+    }
+    a.btn {
+      padding: 4px 5px;
+      &.wide { padding: 4px 10px; }
+    }
+
+    &.toolbar-move { left: 0; }
+    &.toolbar-edit { right: 0; }
+  }
+
+  .PawnPromotionView {
+    position: absolute;
+    left: 0;
+    z-index: 3;
+    &.top {
+      top: -65px;
+      padding-bottom: 12px;
+    }
+    &.bottom {
+      top: 380px;
+      padding-top: 12px;
+    }
+    .wrapper {
+      padding: 0 8px;
+      height: 58px;
+      border: solid 1px #666;
+      background: #fff;
+      border-radius: 10px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+      a {
+        height: 48px;
+        width: 48px;
+        display: inline-block;
+        padding: 5px;
+        &:hover {
+          background: $primary_color;
+          box-shadow: 0 0 15px 15px #fff inset;
+        }
+        &.selected {
+          background: transparent;
+          box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5) inset;
+        }
+      }
+    }
+    .tail {
+      position: absolute;
+      border: solid 12px #666;
+    }
+    &.top .tail {
+      bottom: -12px;
+      &.tailbg {
+        border-color: #666 transparent transparent;
+      }
+      &.tailfg {
+        margin-bottom: 2px;
+        border-color: #fff transparent transparent;
+      }
+    }
+    &.bottom .tail {
+      top: -12px;
+      &.tailbg {
+        border-color: transparent transparent #666;
+      }
+      &.tailfg {
+        margin-top: 2px;
+        border-color: transparent transparent #fff;
+      }
+    }
+  }
+  .game-comments {
+    margin-top: 51px;
+    .game-comment-before { height: 30px; }
+    .game-comment-after { height: 60px; }
+    div, textarea {
+      margin-bottom: 10px;
+    }
+    div {
+      overflow: auto;
+      border: solid 1px #DDD;
+      background: #F5F5F5;
+      padding: 4px;
+      border-radius: 4px;
+    }
+  }
+}
+
+.MoveListView
+{
+  position: absolute;
+  color: #333;
+  right: 0;
+  width: 190px;
+  overflow: auto;
+  top: 0;
+  border: solid 2px #fff;
+  border-width: 2px 0;
+  padding: 0 5px;
+  box-shadow: 0 -3px 8px -8px rgba(0,0,0,0.5), 0 3px 8px -8px rgba(0,0,0,0.5);
+  .clear {
+    clear: both;
+  }
+  .finish-reason {
+    display: block;
+    clear: left;
+    text-align: center;
+    position: relative;
+    top: 7px;
+    border: solid 1px #999;
+    color: #555;
+    border-style: solid none;
+    line-height: 20px;
+    margin: 5px 0 12px;
+    .caret { display: none; }
+  }
+  a.finish-reason {
+    text-indent: 5px;
+    .caret {
+      display: inline-block;
+      margin-top: 8px;
+    }
+    &:hover {
+      color: #000;
+      text-decoration: none;
+      .caret {
+        opacity: 1.0;
+      }
+    }
+  }
+}
+
+.MoveView
+{
+  overflow: hidden;
+  white-space: nowrap;
+  list-style: none;
+  float: left;
+  &.current {
+    background: #C9E4FF;
+    background: rgba(160,160,255,0.5);
+  }
+  a {
+    display: block;
+    color: inherit;
+    width: 70px;
+    height: 20px;
+    line-height: 20px;
+    padding: 3px 5px;
+    .annotation { font-weight: bold; }
+    .good       { color: $win_color; }
+    .bad        { color: $loss_color; }
+  }
+  &.white a { width: 75px; }
+  &.black a { width: 65px; }
+  &.presentation-mode a {
+    border: 3px solid #66b;
+    padding: 0 2px;
+  }
+  &.result { font-weight: bold; }
+  .comment_count {
+    position: absolute;
+    padding-left: 1px;
+    top: 8px;
+    right: 2px;
+  }
+  &.commented-move, &.markedup-move {
+    background-position: 90% 45%;
+    background-repeat: no-repeat;
+  }
+  &.commented-move {
+    background-image: image-url("game_editor/commented-move.png");
+  }
+  &.markedup-move {
+    background-image: image-url("game_editor/markedup-move.png");
+  }
+  &.commented-move.markedup-move {
+    background-image: image-url("game_editor/markedup-commented-move.png");
+  }
+}
+
+.PositionSetupView
+{
+  position: absolute;
+  right: 0;
+  padding: 10px 0 0 10px;
+  width: 188px;
+  height: 240px;
+  overflow: hidden;
+  background: #F0F0F0;
+  border: solid 1px #BBB;
+  border-radius: 4px;
+  a.piece {
+    float: left;
+    margin: 0 10px 10px 0;
+    border-radius: 4px;
+    &:hover {
+      background: $primary_color;
+      box-shadow: 0 0 6px 6px #F0F0F0 inset;
+    }
+    &.selected {
+      background: transparent;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5) inset;
+    }
+
+  }
+  label {
+    float: left;
+    height: 20px;
+    margin: 0 10px 10px 0;
+    white-space: nowrap;
+    &.to-move         { width: 40px; }
+    &.castling-king   { width: 55px; }
+    &.castling-queen  { width: 60px; }
+    &.to-move img {
+      position: relative;
+      top: -1px;
+      left: 3px;
+    }
+    input, .piece, img {
+      display: inline-block;
+      vertical-align: middle;
+    }
+  }
+  div.epbox {
+    float: left;
+    width: 84px;
+    margin-right: 10px;
+    .add-on { width: 25px }
+    input { width: 35px; }
+  }
+  .btn {
+    float: left;
+    width: 62px; // Allow for 22px of horizontal padding
+  }
+}
+
+.MarkupView
+{
+  position: absolute;
+  right: 0;
+  width: 198px;
+  height: 149px;
+  overflow: hidden;
+  background: #F4F4F4;
+  border: solid 1px #BBB;
+  border-radius: 4px;
+  text-align: center;
+  .markup-row {
+    clear: left;
+    border-top: solid 1px #ccc;
+    &:first-child {
+      border-top: none;
+    }
+  }
+  .markup-tool {
+    display: block;
+    float: left;
+    margin: 0;
+    padding: 7px 22px;
+    border-right: solid 1px #ccc;
+    cursor: pointer;
+    &:last-child {
+      border-right: none;
+    }
+    &:hover {
+      background-color: darken(#F4F4F4, 5%);
+    }
+  }
+  .markup-tool-large {
+    padding: 7px 39px;
+  }
+  .markup-tool-selected {
+    background: #d4d2f2;
+    &:hover {
+      background-color: darken(#d4d2f2, 5%);
+    }
+  }
+}
+
+.VariationView
+{
+  .footer { clear: left; }
+  &.collapsed {
+    background: bottom right no-repeat image-url("game_editor/variation-collapsed.png");
+  }
+  &.variation {
+    width: 160px;
+    margin: 4px -1px;
+    border-radius: 4px;
+  }
+  &.variation-0 {
+    background-color: #eee;
+    border: solid 1px #bbb;
+    color: #222;
+  }
+  &.variation-1 {
+    background-color: #ccc;
+    border: solid 1px #999;
+    color: #111;
+  }
+  &.variation-2 {
+    background-color: #aaa;
+    border: solid 1px #777;
+    color: #000;
+  }
+  &.variation-3 {
+    background-color: #666;
+    border: solid 1px #333;
+    color: #EEE;
+  }
+  &.variation-4 {
+    background-color: #444;
+    border: solid 1px #000;
+    color: #FFF;
+  }
+  &.variation-3, &.variation-4 {
+    .commented-move {
+      background-image: image-url("game_editor/commented-move-inverse.png");
+    }
+    .markedup-move {
+      background-image: image-url("game_editor/markedup-move-inverse.png");
+    }
+    .commented-move.markedup-move {
+      background-image: image-url("game_editor/markedup-commented-move-inverse.png");
+    }
+    &.collapsed {
+      background-image: image-url("game_editor/variation-collapsed-inverse.png");
+    }
+  }
+}

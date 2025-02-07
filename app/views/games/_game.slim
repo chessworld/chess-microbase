@@ -1,0 +1,7 @@
+.game itemscope="itemscope" itemtype="http://schema.org/CreativeWork/ChessGame"
+  .name itemprop="name"= game.name_with_ratings
+  .metadata= game.metadata.join " | "
+  .id= game.id
+  .pgn itemprop="pgn"= game.pgn
+  .result itemprop="result"= game.result
+  .url itemprop="url"= microbase_game_url(game.microbase, game, token: game.token)

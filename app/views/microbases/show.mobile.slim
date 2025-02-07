@@ -1,0 +1,15 @@
+- title truncate(@microbase.name, length: 20)
+- back "Home", home_path
+= actions do
+  = render 'actions', microbase: @microbase
+- scripts 'sharing', 'microbases'
+
+= render 'promo' unless current_user
+
+- if @microbase.preamble.present?
+  .boxed
+    .expandable-preamble
+      .preamble= markdown @microbase.preamble
+      = link_to 'Show more', '#', class: 'toggle'
+
+= render 'games/listing', games: @games, url: url_for(@microbase)

@@ -1,0 +1,105 @@
+- title 'Embed microbase'
+- scripts 'embed', 'sharing', 'scheme_select'
+
+- if @microbase.games.size > Microbase::EMBED_LIMIT
+  .alert.alert-warning
+    | Warning: Microbases with more than #{Microbase::EMBED_LIMIT} games cannot be embedded in full. Only the first #{Microbase::EMBED_LIMIT} games will be embedded, the rest can be viewed on the Chess Microbase website.
+
+.row
+  .span4
+    h2
+      = @title
+      .btn-toolbar
+        .btn-group= link_to 'Done', {action: :show, token: params[:token]}, class: 'btn'
+    h3 Options
+    #embed-form data-token="#{@microbase.token}" data-url="#{microbase_url(@microbase).sub(/^https?:/, '')}" data-kind="microbase"
+
+      hr
+      h4 Layout
+      .form-horizontal style="position: relative; left: -80px"
+        .control-group
+          label.control-label <b>Size</b>
+          .controls
+            label.radio
+              = radio_button_tag 'width', 'auto', true
+              '  Fit to page
+            label.radio
+              = radio_button_tag 'width', 'custom', false
+              '  Custom width 
+              br
+              = text_field_tag 'custom-width', 500, class: 'span1'
+              '  px
+        .control-group
+          label.control-label <b>Show</b>
+          .controls
+            .hidden
+              = check_box_tag 'option', 'h', true
+            label.checkbox
+              = check_box_tag 'option', 'm', true
+              '  Move list
+            label.checkbox
+              = check_box_tag 'option', 'c', true
+              '  Comments
+
+        .control-group
+          label.control-label <b>Scheme</b>
+          .controls
+            = select_tag 'color_scheme', options_for_select(User::COLOR_SCHEMES), class: 'color-scheme', style: 'width: 180px'
+
+      hr
+      h4 Defaults
+      .form-horizontal style="position: relative; left: -80px"
+        .control-group
+          label.control-label <b>Game</b>
+          .controls
+            select name="game" id="game" class="span2"
+              - if @microbase.preamble.present?
+                option value="0" Preamble
+              = options_from_collection_for_select(@games, :id, :name_with_ratings)
+        
+        .control-group
+          label.control-label <b>Position</b>
+          .controls
+            label.radio
+              = radio_button_tag 'position', 'start', true
+              '  Start
+            label.radio
+              = radio_button_tag 'position', 'end', false
+              '  End
+            label.radio
+              = radio_button_tag 'position', 'custom', false
+              '  Move # 
+              = text_field_tag 'custom-position', '1.', class: 'span1'
+
+        .control-group
+          label.control-label <b>Display</b>
+          .controls
+            label.checkbox
+              = check_box_tag 'option', 'f', false
+              '  Flip board
+            label.checkbox
+              = check_box_tag 'option', 't', false
+              '  Training mode
+
+    hr
+    h3 Embed HTML code
+    p
+      textarea#embed-code.copy-field style="margin-top: 20px; margin-left: 20px; width: 250px; height: 120px; font-size: 10px" data-instructions="copy-instructions"
+    #copy-instructions.clipboard-instructions style="margin-left: 20px"
+
+  .span8
+    #preview-container
+      h1 My chess blog
+      aside
+        h3 About
+        p
+          | This is an example of how this microbase will look embedded on your 
+          | site. When you're happy with how this page looks, copy and paste 
+          | the embed code to your site's HTML.
+      
+      section
+        article
+          h3 Featured games
+          p
+            cite Posted by you, right now
+          iframe#preview width="380" height="550" src="#{url_for action: :show, token: params[:token], embedded: '1', anchor: 'hmc'}" frameborder="0"

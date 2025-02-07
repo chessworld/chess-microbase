@@ -1,0 +1,37 @@
+- title "Home"
+h2= @title
+
+.row
+  .span6
+    .actions.btn-toolbar
+      .btn-group= link_to raw('<i class="icon-plus"></i> New microbase'), new_microbase_path, class: 'btn new-microbase-button'
+    = render 'listing'
+  .span1 &nbsp;
+  .span5
+    = render 'invites'
+    .well
+      h4 Featured resources
+      br
+      ul
+        li= link_to 'Public Database', 'http://chessmicrobase.com/m/1koly5lq'
+        li= link_to 'Knowledge Base', 'http://chessmicrobase.uservoice.com/knowledgebase'
+    iframe src="//www.facebook.com/plugins/like.php?href=https%3A%2F%2Fwww.facebook.com%2FChessMicroBase&amp;send=false&amp;layout=standard&amp;width=380&amp;show_faces=true&amp;action=like&amp;colorscheme=light&amp;font=arial&amp;height=80&amp;appId=239552942808764" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:380px; height:65px;" allowTransparency="true"
+
+- if current_user.microbases.count >= current_user.microbase_limit
+  #limit_warning.modal.hide
+    .modal-header
+      button.close type="button" data-dismiss="modal" x
+      h3 Microbase limit exceeded
+    .modal-body
+      p
+        | Sorry, #{current_user.account_level} accounts can only have up to 
+        | #{current_user.microbase_limit} microbases.
+    .modal-footer
+      = render 'shared/upgrade_links'
+
+  - content_for :scripts do
+    javascript:
+      $(function(){ $('.new-microbase-button').click(function(e) {
+        e.preventDefault();
+        $('#limit_warning').modal('show')
+      })});

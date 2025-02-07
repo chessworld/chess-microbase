@@ -1,0 +1,21 @@
+table.table.table-bordered
+  tr
+    th Microbases
+    td= user.microbase_limit
+  tr
+    th Games/microbase
+    td= user.game_limit
+
+- if user.upgrades.active.any?
+  h4 Account Upgrades
+  - user.upgrades.active.each do |upgrade|
+    table.table.table-bordered
+      tr
+        th Upgrade
+        td= upgrade.level.titlecase
+      tr
+        th Expires
+        td= upgrade.upgraded_until.to_date.to_s(:long)
+
+- unless user.premium?
+  p= link_to 'Upgrade to Premium', upgrade_user_path(user)

@@ -1,0 +1,22 @@
+- content_for :action do
+  = link_to raw('<i class="icon-plus icon-white"></i>'), new_microbase_path
+
+h3 Search games
+= form_tag search_path, method: :get, class: 'form-search' do
+  = search_field_tag :q, params[:q], placeholder: 'Search games', class: 'search-query'
+
+h3 Microbases
+= render 'listing'
+
+= render 'invites'
+
+h3 Account
+ul.nav.nav-tabs.nav-stacked
+  - unless current_user.premium?
+    li= link_to upgrade_user_path(current_user) do
+      strong= current_user.account_level.titlecase
+      '  &mdash; Upgrade
+  - else
+    li.active= link_to current_user.account_level.titlecase, '#'
+  li= link_to 'Account Settings', edit_user_path(current_user)
+  li= link_to 'Sign Out', session_path(current_user), method: 'delete'

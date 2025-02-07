@@ -1,0 +1,26 @@
+table.table.table-bordered#account_chart
+  thead
+    tr
+      th.span2
+      th.span3 Free
+      th.span3 Premium
+  tbody
+    tr
+      th Microbases
+      td 3
+      td 100
+    tr
+     th Games/microbase
+     td 100
+     td 2000
+    tr
+      th Cost
+      td &mdash;
+      td $19.95/year
+  tfoot
+    tr
+      th Upgrade now
+      td &mdash;
+      td
+        = form_tag user_upgrades_path(current_user.id), style: 'margin-bottom: 0' do
+          script src="https://checkout.stripe.com/checkout.js" class="stripe-button" data-key=(STRIPE_PUBLIC_KEY) data-image=(image_url('logo_mobile.png')) data-name="Chess Microbase" data-description="One year premium upgrade" data-amount="1995"

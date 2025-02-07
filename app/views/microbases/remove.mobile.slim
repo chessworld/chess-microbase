@@ -1,0 +1,30 @@
+- title "Delete"
+- scripts 'confirm_delete'
+- back "Home", home_path
+
+h3 Warning: This microbase will be permanently deleted
+br
+
+- if @microbase.games.any?
+  p
+    | This microbase contains 
+    strong #{pluralize @microbase.games.size, 'game'} 
+    '  that will also be permanently deleted if you continue.
+  br
+  .boxed
+    p
+      | This is your last chance to  download a PGN file of your games 
+      | as a backup, should you need to restore them later.
+
+    = link_to raw('<i class="icon-download-alt icon-white"></i> Download PGN'),microbase_path(@microbase, format: :pgn), class: 'btn btn-primary'
+    br
+
+h3 Delete microbase
+br
+= form_tag @microbase, method: :delete do
+  label.checkbox
+    input type="checkbox" class="confirm-delete"
+    '  Yes, permanently delete this microbase and 
+    | #{pluralize @microbase.games.size, 'game'}.
+  br
+  = submit_tag 'Delete', class: 'btn btn-danger delete-button'

@@ -1,0 +1,10 @@
+- if @current_user.memberships.invites.any?
+  h4 Microbase Invitations
+  table.table
+    - @current_user.memberships.invites.each do |invite|
+      tr
+        td #{invite.inviter.full_name} invited you to collaborate on #{invite.microbase.name}
+        td style="width: 140px; text-align: right"
+          = link_to 'Accept', accept_microbase_membership_path(invite.microbase, invite), method: :post, class: 'btn btn-success'
+          ' 
+          = link_to 'Ignore', [invite.microbase, invite], method: :delete, class: 'btn'

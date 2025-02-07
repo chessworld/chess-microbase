@@ -1,0 +1,65 @@
+@mixin color-rule($base, $light: #fff) {
+  .BoardView, .BoardView .square, .square {
+    border-color: desaturate(darken($base, 20%), 60%);
+  }
+  .square {
+    &.black {
+      background-color: $base;
+      
+    }
+    &.white {
+      background-color: $light;
+    }
+  }
+}
+
+// Preview of scheme to show in Select2 box
+.scheme-preview {
+  display: inline-block;
+  vertical-align: top;
+  padding-top: 2px;
+  .square {
+    display: inline-block;
+    width : 24px;
+    height: 13px;
+    border: solid 1px #ccc;
+    position: absolute;
+    right: 21px;
+  }
+}
+a.select2-choice .scheme-preview {
+  padding-top: 5px;
+  .square {
+    height: 14px;
+    right: 25px;
+  }
+}
+
+.scheme-default       { @include color-rule(#eee);    }
+.scheme-high-contrast { @include color-rule(#999);
+  .square.black.green { background-color: #0a0; }
+  .square.white.green { background-color: #6e6; }
+  .square.black.yellow { background-color: #aa0; }
+  .square.white.yellow { background-color: #ee6; }
+  .square.black.red   { background-color: #a00; }
+  .square.white.red   { background-color: #e66; }
+}
+.scheme-blueberry     { @include color-rule(#c0d3ff); }
+.scheme-dragon-fruit  { @include color-rule(#ffbdec); }
+.scheme-grape         { @include color-rule(#9685d8); }
+.scheme-lime          {
+  @include color-rule(#d3ffcf);
+  .square.black.green { background-color: #3c3; }
+  .square.white.green { background-color: #6e6; }
+}
+.scheme-mango         {
+  @include color-rule(#fff2bf);
+  .square.black.yellow { background-color: #dd4; }
+  .square.white.yellow { background-color: #ee3; }
+}
+.scheme-orange        { @include color-rule(#ffd6a7); }
+.scheme-strawberry    {
+  @include color-rule(#ffb0b6);
+  .square.black.red { background-color: #d33; }
+  .square.white.red { background-color: #f55; }
+}

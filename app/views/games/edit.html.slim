@@ -1,0 +1,11 @@
+- title "Edit game"
+- scripts 'games'
+
+ul.root-breadcrumb
+  li= link_to 'Home', home_path
+  li= link_to truncate(@microbase.name, length: 20), @microbase
+  li= link_to @game.name, [@microbase, @game]
+  li
+    h2= @title
+
+= render 'form', game: @game

@@ -1,0 +1,9 @@
+- title "Account Settings"
+- back 'Home', home_path
+h3 Account Settings
+br
+= render 'form', user: @user
+br
+h3 Account Status
+br
+= render 'account_status', user: @user

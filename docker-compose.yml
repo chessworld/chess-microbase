@@ -1,0 +1,49 @@
+version: "3.3"
+
+services:
+  db:
+    image: postgres
+    environment:
+      POSTGRES_PASSWORD: password
+    volumes:
+      - .:/root
+
+  redis:
+    image: redis:4-alpine
+    command: redis-server --appendonly yes
+
+  nginx:
+    build: ./nginx
+    ports:
+      - "3000:80"
+    depends_on:
+      - web
+    environment:
+      NGINX_ENV: development
+
+  web: &app-base
+    command: puma -b tcp://0.0.0.0:3000
+    build: .
+    image: chessmicrobase_app
+    volumes:
+      - .:/srv
+    depends_on:
+      - db
+      - redis
+      - mailcatcher
+    environment:
+      POSTGRES_HOST: db
+      POSTGRES_PASSWORD: password
+      SMTP_HOST: mailcatcher
+      SMTP_PORT: 25
+      REDIS_URLS: "redis://redis"
+      DOMAIN: localhost:3000
+      FACEBOOK_APP_ID: xxx
+      FACEBOOK_APP_SECRET: xxx
+      STRIPE_PUBLIC_KEY: xxx
+      STRIPE_SECRET_KEY: xxx
+
+  mailcatcher:
+    image: tophfr/mailcatcher
+    ports:
+      - "3010:80"

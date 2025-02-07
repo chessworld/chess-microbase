@@ -1,0 +1,14 @@
+- title "Import PGN"
+
+ul.root-breadcrumb
+  li= link_to 'Home', home_path
+  li= link_to truncate(@microbase.name, length: 20), @microbase
+  li
+    h2= @title
+
+br
+= semantic_form_for @microbase, url: import_microbase_path(@microbase), method: :post, html: {class: 'form-horizontal'} do |f|
+  = f.inputs do
+    = f.input :pgn_file, as: :file, label: 'PGN file'
+  = f.actions do
+    = f.action :submit, label: 'Import'

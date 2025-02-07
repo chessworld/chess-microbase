@@ -1,0 +1,28 @@
+- if admin?
+  - title "Upgrade user"
+  - back 'Home', home_path
+  = render 'upgrade_form', user: @user
+- else
+  - title "Upgrade your account"
+  - back 'Home', home_path
+  p Your account: <strong>#{@user.account.titlecase}</strong>
+
+  - if @user.premium?
+    br
+    h3 You already have a premium account
+    br
+    p Premium accounts are currently the highest level we have available. 
+    p
+      | If you need to store more microbases or games, please 
+      = link_to 'contact us.', 'http://chessmicrobase.uservoice.com/'
+  
+  br
+  = render 'pricing_table'
+
+  - unless @user.premium?
+    h3 Redeem a coupon
+    p If you have a coupon code to redeem, enter it here.
+    = form_tag({action: :redeem}, {class: 'form-inline'}) do
+      = text_field_tag :coupon_code, '', class: 'input-medium'
+      ' 
+      = submit_tag 'Redeem', class: 'btn'

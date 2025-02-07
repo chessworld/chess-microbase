@@ -1,0 +1,25 @@
+default: &default
+  adapter: postgresql
+  encoding: utf8
+  host: <%= ENV['POSTGRES_HOST'] %>
+  username: postgres
+  password: <%= ENV['POSTGRES_PASSWORD'] %>
+
+development:
+  <<: *default
+  database: chessmicrobase_development
+
+test: &test
+  <<: *default
+  database: chessmicrobase_test
+
+production:
+  <<: *default
+  database: chessmicrobase_production
+
+staging:
+  <<: *default
+  database: chessmicrobase_staging
+
+cucumber:
+  <<: *test

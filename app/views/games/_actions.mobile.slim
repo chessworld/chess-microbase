@@ -1,0 +1,10 @@
+ul.actions
+  - if can? :update, game
+    li= link_to raw('<i class="icon-pencil"></i> Edit'), edit_microbase_game_path(game.microbase, game)
+  
+  li= link_to raw('<i class="icon-share"></i> Get Link'), %(javascript:void(prompt("Instructions: Tap and hold in text box, “Select All”, then “Copy”", "#{game_jump_url(token: game.token)}")))
+      
+  - if current_user
+    - microbases = current_user.microbases.where('microbases.id != ?', game.microbase.id).order('last_accessed_at desc').limit(5).all
+    - microbases.each do |microbase|
+      li= link_to raw(%(<i class="icon-copy"></i> Copy to &ldquo;#{truncate(microbase.name, length: 10)}&rdquo;)), copy_microbase_game_path(game.microbase, game, copy_to_id: microbase.id, token: params[:token]), method: :post

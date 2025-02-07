@@ -1,0 +1,27 @@
+{
+  "name": "game-editor",
+  "version": "1.0.0",
+  "main": "lib/index.js",
+  "repository": "git@github.com:chessworld/game-editor.git",
+  "author": "Tobias Cohen <me@tobiascohen.com>",
+  "license": "UNLICENSED",
+  "directories": {
+    "lib": "lib"
+  },
+  "scripts": {
+    "compile": "babel -d lib/ src/",
+    "test": "jest src",
+    "prepublish": "npm run compile"
+  },
+  "dependencies": {
+    "jquery": "^3.2.1",
+    "seaturtle": "^1.0.4"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.24.1",
+    "babel-jest": "^20.0.3",
+    "babel-preset-es2015": "^6.24.1",
+    "babel-preset-stage-0": "^6.24.1",
+    "jest": "^20.0.4"
+  }
+}

@@ -1,0 +1,10 @@
+- title 'Add collaborator'
+
+ul.root-breadcrumb
+  li= link_to 'Home', home_path
+  li= link_to @microbase.name, @microbase
+  li
+    h2= @title
+.row
+  .span6
+    = render 'form'

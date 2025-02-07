@@ -1,0 +1,25 @@
+= f.semantic_errors
+= f.inputs do
+  = f.input :fen, as: :hidden
+  = f.input :movetext, as: :hidden
+  table
+    tr
+      td style="padding-right: 10px"
+        = f.input :result, collection: Game::RESULTS, include_blank: 'Unknown', input_html: {style: 'width: 154px'}
+      td= f.input :game_number, as: :string, label: 'Game #', input_html: {class: 'span1', placeholder: f.object.valid_game_numbers}
+    tr
+      td style="padding-right: 10px"= f.input :white, placeholder: 'Surname, Name', input_html: {style: 'width: 144px'}
+      td= f.input :white_rating, as: :string, label: 'Rating', placeholder: 'unr', input_html: {class: 'span1'}
+    tr
+      td= f.input :black, placeholder: 'Surname, Name', input_html: {style: 'width: 144px'}
+      td= f.input :black_rating, as: :string, label: 'Rating', placeholder: 'unr', input_html: {class: 'span1'}
+  = f.input :date_formatted, as: :string, label: 'Date', placeholder: 'dd/mm/yyyy'
+  = f.input :tag_list, as: :string, placeholder: 'tag 1, tag 2, tag 3'
+  = f.input :tournament, placeholder: 'Tournament Name'
+  = f.input :location, placeholder: 'Tournament Location'
+  table
+    tr
+      td style="padding-right: 10px"
+        = f.input :round, as: :string, placeholder: '#', input_html: {style: 'width: 94px'}
+      td
+        = f.input :subround, as: :string, placeholder: '#', input_html: {style: 'width: 94px'}

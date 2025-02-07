@@ -1,0 +1,69 @@
+//= require css/bootstrap
+
+@import "bourbon";
+
+// Black nav bar
+.navbar {
+  .navbar-inner {
+    //@include linear-gradient(#333, #222);
+  }
+  .nav > li > a, .brand {
+    color: #999;
+    text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
+    &:hover {
+      color: #fff;
+    }
+    &:active, &:focus {
+      color: #ccc;
+    }
+  }
+  .nav > li.active > a, .nav > li.active > a:hover {
+    background: #000;
+    color: #fff;
+  }
+  .nav li.dropdown > a:hover .caret {
+    border-top-color: #fff;
+  }
+  .nav li.dropdown > a:focus .caret {
+    border-top-color: #ccc;
+  }
+}
+
+// Fix brand wrapping to two lines on IE
+.navbar .brand {
+  background: 0 50% image-url("logo_2x.png") no-repeat;
+  background-size: 32px 32px;
+  padding-left: 40px;
+  width: 160px;
+}
+
+// Max width for nav elements
+.nav li.ellipsis, .nav li.ellipsis>a {
+  max-width: 110px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+// Sort icons for tables
+.table {
+  a.sorted_up:after {
+    content: ' ↑';
+  }
+  a.sorted_down:after {
+    content: ' ↓';
+  }
+}
+
+// Display table actions only on hover
+html.no-touch {
+  .table {
+    tr a.action { opacity: 0; }
+    tr:hover a.action { opacity: 1; }
+  }
+}
+
+// Allow button groups button to be overrided and display as a single button
+.btn-group .btn.solitary {
+  border-radius: 4px;
+}

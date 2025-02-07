@@ -1,0 +1,43 @@
+- title @game.name
+
+- content_for :head do
+  meta name="garbochess" content=(asset_url('garbochess.js'))
+  meta name="print-css" content=(asset_url('print.css'))
+
+= render @game
+
+- if @embedded
+  - scripts 'embedding'
+  #game-editor
+    .loading Loading embedded game viewer...
+- else
+  - scripts 'games', 'sharing'
+
+  - unless current_user
+    = render 'promo'
+
+  - if @game.hits > 0
+    div#hit-counter
+      .counter= @game.hits
+      .label HITS
+
+  ul.root-breadcrumb
+    li= link_to 'Home', home_path
+    - if game_token?
+      li= truncate @microbase.name, length: 20
+    - else
+      li= link_to truncate(@microbase.name, length: 20), microbase_path(@microbase, token: params[:token])
+    li
+      h2= @title
+
+  .row
+    .span8
+      = render 'actions', game: @game
+      #game-editor style="margin-top: 25px" class="#{color_scheme}" data-training-mode=(current_user&.default_to_training_mode?.to_json)
+        .loading Loading game viewer...
+    .span4
+      = render 'navigation', game: @game
+      = render 'details', game: @game
+
+  = render 'shared/copy_link_dialog', resource: 'game', url: game_jump_url(token: @game.token)
+  = render 'copy_pgn_dialog'

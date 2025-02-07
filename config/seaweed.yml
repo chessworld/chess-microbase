@@ -1,0 +1,6 @@
+libs:
+  - assets/javascripts
+  - vendor/assets/javascripts/seaturtle/lib
+  - vendor/assets/javascripts/game-editor/lib
+specs:
+  - vendor/assets/javascripts/game-editor/spec

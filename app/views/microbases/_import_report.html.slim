@@ -1,0 +1,9 @@
+strong Import complete, 
+| #{pluralize report[:imported], 'games'} imported successfully
+- if report[:failed] > 0
+  | , #{pluralize report[:failed], 'games'} failed
+- if report[:truncated] > 0
+  | , and #{pluralize report[:truncated], 'games'} could not be imported 
+  | because they exceeded the per-microbase game limit for 
+  | #{current_user.account_level} accounts of #{pluralize current_user.game_limit, 'game'}. 
+  = link_to 'Upgrade now to increase your limits', upgrade_user_path(current_user)

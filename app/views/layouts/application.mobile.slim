@@ -1,0 +1,45 @@
+doctype html
+html lang="en"
+  head
+    meta charset="utf-8"
+    meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0"
+    meta name="apple-mobile-web-app-capable" content="yes"
+    title= @title ? "#{@title} - Chess Microbase" : "Chess Microbase"
+    = csrf_meta_tags
+    = stylesheet_link_tag "mobile", :media => "all"
+    link href="/assets/favicon.png" rel="shortcut icon"
+    link href="/assets/apple-touch-startup-image.png" rel="apple-touch-startup-image"
+    link href="/assets/apple-touch-icon-57.png" rel="apple-touch-icon-precomposed" sizes="57x57"
+    link href="/assets/apple-touch-icon-114.png" rel="apple-touch-icon-precomposed" sizes="114x114"
+    meta name="facebook-app-id" content=(ENV['FACEBOOK_APP_ID'])
+    = yield :head
+
+  body
+    .nav-bar
+      .inner
+        .back
+          = yield :back
+        .title
+          - if @title
+            = @title
+          - else
+            = image_tag asset_url('logo_2x.png'), width: 32, height: 32, style: 'margin: -4px 5px 0 -37px; vertical-align: middle'
+            '  Chess Microbase
+        .action
+          = yield :action
+
+    .container
+      .content
+        - flash.each do |kind, message|
+          div class="alert alert-#{kind}"
+            a.close data-dismiss="alert" x
+            = message
+
+        = yield
+
+      footer
+        div
+          = link_to 'Help and Support', 'http://chessmicrobase.uservoice.com/'
+          ' &nbsp;&nbsp;&nbsp;&nbsp; Layout: #{link_to 'Desktop', switch_format_sessions_path(preferred_format: 'html')} | <strong>Mobile</strong>
+        = javascript_include_tag "application", "mobile"
+        = yield :scripts

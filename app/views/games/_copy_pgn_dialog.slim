@@ -1,0 +1,7 @@
+#copy_pgn_dialog.modal.copy-dialog style="display: none"
+  .modal-header
+    a.close data-dismiss="modal" x
+    h3 Copy PGN
+  .modal-body
+    = text_area_tag 'pgn', '', id: 'pgn_field', class: 'span5 copy-field', style: 'height: 200px; font-size: 9px; line-height: 11px', 'data-instructions' => 'copy_pgn_instructions'
+    span#copy_pgn_instructions.clipboard-instructions
